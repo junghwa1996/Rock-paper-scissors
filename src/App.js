@@ -1,10 +1,11 @@
 import { useState } from "react";
 import Button from "./components/Button";
 import HandButton from "./components/HandButton";
-import HandIcon from "./components/HandIcon";
+// import HandIcon from "./components/HandIcon";
 import { compareHand, generateRandomHand } from "./utils/utils";
 import "./styles/App.css";
 import Score from "./components/Score";
+import Hand from "./components/Hand";
 
 const INITIAL_VALUE = "rock";
 
@@ -60,15 +61,24 @@ function App() {
         <div className='App-versus'>:</div>
         <Score score={otherScore}>상대</Score>
       </div>
-      <div>
-        <HandIcon value={hand} />
-        VS
-        <HandIcon value={otherHand} />
+      <div className='Box App-box'>
+        <div className='Box-inner'>
+          <div className='App-hands'>
+            <Hand className='Hand-icon' value={hand} />
+            <div className='App-versus'>VS</div>
+            <Hand className='Hand-icon' value={otherHand} />
+          </div>
+          <div className='App-bet'>
+            <span>배점</span>
+            <input type='number' value={bet} min={1} max={9} onChange={handleBetChange}></input>
+            <span>배</span>
+          </div>
+          <div className='App-history'>
+            <h2>승부기록</h2>
+            <p>{gameHistory.join(", ")}</p>
+          </div>
+        </div>
       </div>
-      <div>
-        <input type='number' value={bet} min={1} max={9} onChange={handleBetChange}></input>
-      </div>
-      <p>승부 기록: {gameHistory.join(", ")}</p>
       <div>
         <HandButton value='rock' onClick={handleButtonClick} />
         <HandButton value='scissor' onClick={handleButtonClick} />
